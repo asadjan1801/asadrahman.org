@@ -301,6 +301,29 @@ body {
   font-family: var(--serif);
 }
 
+/* ---------- Portrait ---------- */
+.portrait {
+  float: right;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0.25em 0 1em 1.5em;
+  border: 1px solid var(--rule);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  shape-outside: circle(50%);
+}
+@media (max-width: 560px) {
+  .portrait {
+    float: none;
+    display: block;
+    margin: 0 auto 1.25em;
+    width: 140px;
+    height: 140px;
+    shape-outside: none;
+  }
+}
+
 /* ---------- Lede & drop cap ---------- */
 .lede { font-size: 1em; }
 .dropcap {
