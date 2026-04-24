@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://asadrahman.org/</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://asadrahman.org/asad-ur-rahman.jpg</image:loc>
+      <image:title>Asad Ur Rahman</image:title>
+      <image:caption>Asad Ur Rahman — Structural Engineering PhD candidate at the University of Houston.</image:caption>
+    </image:image>
+  </url>
+</urlset>
