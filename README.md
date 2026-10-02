@@ -1,26 +1,43 @@
 # asadrahman.org
 
-Personal website of Asad Ur Rahman — Structural Engineering PhD candidate at the University of Houston.
+Academic website of Asad Ur Rahman, PhD — Assistant Professor at the NUST Institute of Civil Engineering, School of Civil and Environmental Engineering.
 
-Static HTML / CSS / JS. No build step. Designed to deploy on Cloudflare Pages.
+The site is built with static HTML, CSS, and JavaScript. It has no build step and is deployed with Cloudflare Workers static assets.
 
 ## Local preview
 
 ```sh
 python3 -m http.server 8000
-# then open http://localhost:8000
 ```
 
-## Deploy (Cloudflare Pages)
+Then open `http://localhost:8000`.
 
-1. Push this repo to GitHub.
-2. In Cloudflare dashboard: **Workers & Pages → Create → Pages → Connect to Git**.
-3. Pick this repo. Framework preset: **None**. Build command: *(leave empty)*. Output directory: `/`.
-4. After first deploy, add the custom domain `asadrahman.org` under **Custom domains**.
+## Site structure
 
-## Files
+- `/` — academic homepage
+- `/research/` — research areas and featured projects
+- `/publications/` — full publication record
+- `/teaching/` — teaching overview
+- `/teaching/structural-dynamics/` — CE-809 course page
+- `/teaching/structural-dynamics/interactive-lab/` — Structural Dynamics Virtual Lab
+- `/teaching/ai-built-environment/` — CE-312 course page
+- `/interactive-labs/` — interactive learning tools
+- `/cv/` — web CV and PDF download
+- `/contact/` — contact information and academic profiles
 
-- `index.html` — single-page site
-- `styles.css` — typography, layout, light/dark theme
-- `script.js` — theme toggle, TOC scroll‑spy, year stamp
-- `Resume_Asad ur rahman.pdf` — linked from the Contact section
+Shared presentation and behavior are in `styles.css` and `script.js`.
+
+## Private course material
+
+Files under `Structural_dynamics_Interactive_Labs/lectures/` are private instructor materials. They are ignored by Git and must not be linked, committed, or deployed. The public interactive lab is self-contained and does not require those files.
+
+## Deploy with Cloudflare Workers
+
+1. Push the repository to GitHub.
+2. In Cloudflare, connect this GitHub repository to the `asadrahman-org` Worker.
+3. Use `main` as the production branch and enable preview builds for feature branches.
+4. Leave the build command empty. Use `npx wrangler deploy` as the production deploy command and `npx wrangler versions upload` as the preview command for feature branches.
+5. The checked-in `wrangler.jsonc` publishes the repository's public static files; `.assetsignore` prevents repository-only and private-source files from being uploaded.
+6. Add `asadrahman.org` under **Settings → Domains & Routes**.
+
+Before deploying, verify that the private `Structural_dynamics_Interactive_Labs/lectures/` directory is not included in the commit.

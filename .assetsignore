@@ -1,0 +1,17 @@
+# Repository and deployment configuration
+.git/
+.gitignore
+.assetsignore
+README.md
+wrangler.jsonc
+
+# Local development files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+node_modules/
+
+# Private instructor materials and non-public source directories
+Structural_dynamics_Interactive_Labs/
+AI_in_built_env_interactive_lab/
