@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://asadrahman.org/</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://asadrahman.org/asad-ur-rahman.jpg</image:loc>
       <image:title>Asad Ur Rahman</image:title>
-      <image:caption>Asad Ur Rahman — Structural Engineering PhD candidate at the University of Houston.</image:caption>
+      <image:caption>Asad Ur Rahman, Assistant Professor at the National University of Sciences and Technology.</image:caption>
     </image:image>
   </url>
+  <url><loc>https://asadrahman.org/research/</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://asadrahman.org/publications/</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://asadrahman.org/teaching/</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://asadrahman.org/teaching/structural-dynamics/</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://asadrahman.org/teaching/structural-dynamics/interactive-lab/</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://asadrahman.org/teaching/ai-built-environment/</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://asadrahman.org/interactive-labs/</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://asadrahman.org/cv/</loc><lastmod>2026-10-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://asadrahman.org/contact/</loc><lastmod>2026-10-03</lastmod><changefreq>yearly</changefreq><priority>0.7</priority></url>
 </urlset>
