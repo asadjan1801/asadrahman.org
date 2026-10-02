@@ -36,7 +36,7 @@ Files under `Structural_dynamics_Interactive_Labs/lectures/` are private instruc
 1. Push the repository to GitHub.
 2. In Cloudflare, connect this GitHub repository to the `asadrahman-org` Worker.
 3. Use `main` as the production branch and enable preview builds for feature branches.
-4. Leave the build command empty and use `npx wrangler versions upload` as the deploy command.
+4. Leave the build command empty. Use `npx wrangler deploy` as the production deploy command and `npx wrangler versions upload` as the preview command for feature branches.
 5. The checked-in `wrangler.jsonc` publishes the repository's public static files; `.assetsignore` prevents repository-only and private-source files from being uploaded.
 6. Add `asadrahman.org` under **Settings → Domains & Routes**.
 
