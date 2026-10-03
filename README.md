@@ -29,7 +29,7 @@ Shared presentation and behavior are in `styles.css` and `script.js`.
 
 ## Private course material
 
-Files under `Structural_dynamics_Interactive_Labs/lectures/` are private instructor materials. They are ignored by Git and must not be linked, committed, or deployed. The public interactive lab is self-contained and does not require those files.
+Files under `Structural_dynamics_Interactive_Labs/lectures/` and `AI_in_built_env_interactive_lab/` are private instructor materials. They are ignored by Git and must not be linked, committed, or deployed. The public interactive labs are self-contained and do not require those files.
 
 ## Deploy with Cloudflare Workers
 
