@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Interactive Machine Learning Lab | Asad Ur Rahman</title>
+  <meta name="description" content="A lightweight, browser-based lab for building intuition about machine learning and deep learning through direct interaction.">
+  <link rel="canonical" href="https://asadrahman.org/teaching/ai-built-environment/interactive-lab/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="lab.css">
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to experiment</a>
+
+  <header class="lab-header">
+    <div>
+      <a class="back-link" href="../">← Back to AI in the Built Environment</a>
+      <p class="eyebrow">Interactive learning environment</p>
+      <h1>Machine Learning &amp; Deep Learning Lab</h1>
+      <p>Change one thing at a time, watch the model respond, and connect the picture to the mathematics.</p>
+    </div>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="labNav">Browse modules</button>
+  </header>
+
+  <div class="lab-shell">
+    <aside class="lab-nav" id="labNav" aria-label="Lab modules">
+      <div class="nav-intro">
+        <strong>Concept map</strong>
+        <span><i class="status-dot live-dot"></i>All modules live</span>
+        <span>Browser only</span>
+      </div>
+      <div id="navList"></div>
+    </aside>
+
+    <main class="workspace" id="workspace">
+      <section class="learning-shell" id="learningShell" aria-labelledby="learningShellTitle">
+        <div class="learning-toolbar">
+          <div class="learning-identity">
+            <span class="step-label">Learning mode</span>
+            <strong id="learningShellTitle">Guided exploration</strong>
+          </div>
+          <div class="mode-switch" role="group" aria-label="Learning mode">
+            <button class="mode-button active" id="guidedModeButton" type="button" aria-pressed="true">Guided</button>
+            <button class="mode-button" id="exploreModeButton" type="button" aria-pressed="false">Explore freely</button>
+          </div>
+          <div class="learning-tools">
+            <label class="speed-control" for="animationSpeed">Animation <select id="animationSpeed"><option value="0.7">Slow</option><option value="1" selected>Normal</option><option value="1.5">Fast</option></select></label>
+            <button class="tool-button" id="motionButton" type="button" aria-pressed="false">Reduce motion</button>
+            <details class="glossary-popover">
+              <summary>Symbol guide</summary>
+              <dl><div><dt>x</dt><dd>input or feature</dd></div><div><dt>w</dt><dd>learned weight</dd></div><div><dt>b</dt><dd>bias</dd></div><div><dt>ŷ</dt><dd>model prediction</dd></div><div><dt>L</dt><dd>loss or error</dd></div><div><dt>∂</dt><dd>small-change derivative</dd></div><div><dt>α</dt><dd>learning rate</dd></div></dl>
+            </details>
+            <button class="tool-button" id="shareLessonButton" type="button">Copy lesson link</button>
+          </div>
+        </div>
+        <div class="guided-panel" id="guidedPanel">
+          <ol class="guide-steps" aria-label="Guided learning stages">
+            <li><button class="guide-step active" type="button" data-guide-stage="0"><span>1</span>Predict</button></li>
+            <li><button class="guide-step" type="button" data-guide-stage="1"><span>2</span>Interact</button></li>
+            <li><button class="guide-step" type="button" data-guide-stage="2"><span>3</span>Observe</button></li>
+            <li><button class="guide-step" type="button" data-guide-stage="3"><span>4</span>Explain</button></li>
+          </ol>
+          <div class="guide-content" aria-live="polite">
+            <div><span class="step-label" id="guideStageLabel">Before changing anything</span><h2 id="guideTitle">Make a prediction</h2><p id="guidePrompt"></p></div>
+            <div class="prediction-options" id="predictionOptions" role="group" aria-label="Your ungraded prediction">
+              <button type="button" data-prediction="decrease">Decrease</button><button type="button" data-prediction="similar">Stay similar</button><button type="button" data-prediction="increase">Increase</button>
+            </div>
+            <aside class="misconception-note" id="misconceptionNote"></aside>
+          </div>
+          <div class="guide-footer">
+            <div class="lesson-nav"><button class="tool-button" id="previousLessonButton" type="button">Previous lesson</button><button class="tool-button" id="nextLessonButton" type="button">Next lesson</button></div>
+            <div class="stage-nav"><button class="tool-button" id="previousStageButton" type="button">Previous step</button><button class="button primary" id="nextStageButton" type="button">Continue</button></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="module active" id="linearModule" aria-labelledby="linearTitle">
+        <header class="module-header">
+          <div>
+            <div class="module-kicker"><span class="status-pill live">Live module</span><span>Foundations</span></div>
+            <h2 id="linearTitle">Linear Regression</h2>
+            <p>Fit a line to editable data and see how residuals, mean squared error, and gradient descent describe the same learning process.</p>
+          </div>
+          <div class="module-goal"><span>Central question</span><strong>How does a model learn the best line?</strong></div>
+        </header>
+
+        <div class="workspace-grid">
+          <section class="panel controls-panel" aria-labelledby="controlsTitle">
+            <h3 id="controlsTitle">Experiment controls</h3>
+
+            <label class="field-label" for="datasetPreset">Dataset</label>
+            <select id="datasetPreset">
+              <option value="clean">Clear linear pattern</option>
+              <option value="noisy">Noisy measurements</option>
+              <option value="outlier">One influential outlier</option>
+              <option value="curve">A pattern a line cannot capture</option>
+            </select>
+
+            <div class="control">
+              <label for="slope">Slope <em>w</em><output id="slopeOut">0.00</output></label>
+              <input id="slope" type="range" min="-4" max="4" step="0.01" value="0">
+            </div>
+            <div class="control">
+              <label for="intercept">Intercept <em>b</em><output id="interceptOut">0.00</output></label>
+              <input id="intercept" type="range" min="-5" max="5" step="0.01" value="0">
+            </div>
+            <div class="control">
+              <label for="learningRate">Learning rate <em>α</em><output id="learningRateOut">0.020</output></label>
+              <input id="learningRate" type="range" min="0.001" max="0.08" step="0.001" value="0.02">
+            </div>
+
+            <div class="toggle-row">
+              <label><input id="showResiduals" type="checkbox" checked> Show residuals</label>
+              <label><input id="showTest" type="checkbox" checked> Show test points</label>
+            </div>
+
+            <div class="actions">
+              <button class="button primary" id="stepButton" type="button">Take one step</button>
+              <button class="button" id="playButton" type="button">Auto-step</button>
+              <button class="button" id="bestFitButton" type="button">Show best fit</button>
+              <button class="button quiet" id="resetModelButton" type="button">Reset model</button>
+            </div>
+
+            <div class="control-note">
+              <strong>Edit the data</strong>
+              <p>Click empty space to add a point. Drag a point to move it. Shift-click a point to remove it.</p>
+            </div>
+          </section>
+
+          <section class="panel plot-panel" aria-labelledby="dataPlotTitle">
+            <div class="panel-heading">
+              <div><span class="step-label">Data space</span><h3 id="dataPlotTitle">Prediction line and residuals</h3></div>
+              <div class="legend" aria-label="Plot legend"><span><i class="legend-mark train"></i>Training</span><span><i class="legend-mark test"></i>Test</span><span><i class="legend-line"></i>Prediction</span></div>
+            </div>
+            <canvas id="dataCanvas" aria-label="Interactive scatter plot with a linear regression line"></canvas>
+            <p class="canvas-help">The vertical segments are residuals: the difference between an observed value and the model prediction.</p>
+          </section>
+
+          <section class="metrics" aria-label="Current model values">
+            <article><span>Training MSE</span><strong id="trainMse">—</strong><small>Average squared residual</small></article>
+            <article><span>Test MSE</span><strong id="testMse">—</strong><small>Unseen-point error</small></article>
+            <article><span>Slope gradient</span><strong id="slopeGradient">—</strong><small>Direction to change w</small></article>
+            <article><span>Intercept gradient</span><strong id="interceptGradient">—</strong><small>Direction to change b</small></article>
+          </section>
+
+          <section class="panel loss-panel" aria-labelledby="lossTitle">
+            <div class="panel-heading">
+              <div><span class="step-label">Parameter space</span><h3 id="lossTitle">Loss surface</h3></div>
+              <div class="loss-view-switch" role="group" aria-label="Loss surface view">
+                <button class="loss-view-button active" id="loss3dButton" type="button" aria-pressed="true">3D surface</button>
+                <button class="loss-view-button" id="loss2dButton" type="button" aria-pressed="false">2D contours</button>
+              </div>
+            </div>
+            <canvas id="lossCanvas" tabindex="0" aria-label="Interactive three-dimensional loss surface showing the current model and gradient descent path"></canvas>
+            <p class="canvas-help" id="lossHelp">Drag or use the arrow keys to rotate. Height represents training loss; the red marker is the current model and the yellow line records gradient-descent steps.</p>
+          </section>
+
+          <section class="panel explanation-panel" aria-labelledby="explainTitle">
+            <div class="panel-heading">
+              <div><span class="step-label">Connect the views</span><h3 id="explainTitle">What the model is calculating</h3></div>
+              <div class="tabs" role="tablist" aria-label="Explanation depth">
+                <button class="tab active" type="button" role="tab" aria-selected="true" data-tab="intuition">Intuition</button>
+                <button class="tab" type="button" role="tab" aria-selected="false" data-tab="math">Live math</button>
+                <button class="tab" type="button" role="tab" aria-selected="false" data-tab="deeper">Deeper</button>
+              </div>
+            </div>
+
+            <div class="tab-panel active" id="tab-intuition" role="tabpanel">
+              <p>A line makes one prediction at every horizontal position. Learning means adjusting its slope and intercept so the residuals become small overall—not necessarily zero for every point.</p>
+              <div class="try-card"><strong>Try this</strong><p>Select <b>One influential outlier</b>, choose <b>Show best fit</b>, then drag the isolated point. Watch the line and test error respond.</p></div>
+            </div>
+
+            <div class="tab-panel" id="tab-math" role="tabpanel" hidden>
+              <div class="formula" aria-label="Linear regression equation">
+                <span>ŷ</span> = <mark data-emphasis="slope">w</mark><mark data-emphasis="point">x</mark> + <mark data-emphasis="intercept">b</mark>
+              </div>
+              <p id="pointCalculation">Select or add a point to inspect its calculation.</p>
+              <div class="formula compact">MSE = (1/n) Σ <mark data-emphasis="residual">(y − ŷ)²</mark></div>
+              <p id="gradientCalculation"></p>
+            </div>
+
+            <div class="tab-panel" id="tab-deeper" role="tabpanel" hidden>
+              <p>For mean squared error, the gradient measures how a tiny change in each parameter would change the loss. One update is:</p>
+              <div class="formula compact">w ← w − α(∂MSE/∂w) &nbsp;&nbsp; b ← b − α(∂MSE/∂b)</div>
+              <ul class="plain-list">
+                <li>A very small learning rate moves safely but slowly.</li>
+                <li>A very large learning rate can overshoot or diverge.</li>
+                <li>The closed-form best fit and converged gradient descent solve the same least-squares problem here.</li>
+                <li>A low training error does not guarantee a good model for unseen data.</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="module" id="logisticModule" aria-labelledby="logisticTitle" hidden>
+        <header class="module-header">
+          <div>
+            <div class="module-kicker"><span class="status-pill live">Live module</span><span>Classical ML</span></div>
+            <h2 id="logisticTitle">Logistic Regression</h2>
+            <p>Turn a weighted score into a probability, then see how a decision threshold converts that probability into one of two classes.</p>
+          </div>
+          <div class="module-goal"><span>Central question</span><strong>How does a model draw a probabilistic boundary?</strong></div>
+        </header>
+
+        <div class="logistic-grid">
+          <section class="panel controls-panel logistic-controls" aria-labelledby="logisticControlsTitle">
+            <h3 id="logisticControlsTitle">Experiment controls</h3>
+
+            <label class="field-label" for="logDatasetPreset">Dataset</label>
+            <select id="logDatasetPreset">
+              <option value="separable">Mostly separable classes</option>
+              <option value="overlap">Overlapping classes</option>
+              <option value="imbalanced">Imbalanced classes</option>
+              <option value="nonlinear">Nonlinear pattern</option>
+            </select>
+
+            <div class="control">
+              <label for="logW1">Horizontal weight <em>w₁</em><output id="logW1Out">0.00</output></label>
+              <input id="logW1" type="range" min="-4" max="4" step="0.01" value="0">
+            </div>
+            <div class="control">
+              <label for="logW2">Vertical weight <em>w₂</em><output id="logW2Out">0.00</output></label>
+              <input id="logW2" type="range" min="-4" max="4" step="0.01" value="0">
+            </div>
+            <div class="control">
+              <label for="logBias">Bias <em>b</em><output id="logBiasOut">0.00</output></label>
+              <input id="logBias" type="range" min="-5" max="5" step="0.01" value="0">
+            </div>
+            <div class="control threshold-control">
+              <label for="logThreshold">Decision threshold <em>t</em><output id="logThresholdOut">0.50</output></label>
+              <input id="logThreshold" type="range" min="0.05" max="0.95" step="0.01" value="0.5">
+            </div>
+
+            <div class="class-picker" role="group" aria-label="Class assigned to newly added points">
+              <span>Add new points as</span>
+              <label><input type="radio" name="logAddClass" value="0" checked><i class="class-swatch class-zero"></i>Class 0</label>
+              <label><input type="radio" name="logAddClass" value="1"><i class="class-swatch class-one"></i>Class 1</label>
+            </div>
+
+            <div class="toggle-row">
+              <label><input id="logShowProbability" type="checkbox" checked> Show probability map</label>
+            </div>
+
+            <div class="actions">
+              <button class="button primary" id="logStepButton" type="button">Take one step</button>
+              <button class="button" id="logPlayButton" type="button">Auto-step</button>
+              <button class="button quiet" id="logResetButton" type="button">Reset model</button>
+            </div>
+
+            <div class="control-note">
+              <strong>Edit the data</strong>
+              <p>Choose a class, then click to add a point. Drag any point to move it. Shift-click to remove it.</p>
+            </div>
+          </section>
+
+          <section class="panel logistic-plot-panel" aria-labelledby="logisticPlotTitle">
+            <div class="panel-heading">
+              <div><span class="step-label">Feature space</span><h3 id="logisticPlotTitle">Probability map and decision boundary</h3></div>
+              <div class="legend" aria-label="Class legend"><span><i class="class-swatch class-zero"></i>Class 0</span><span><i class="class-swatch class-one"></i>Class 1</span><span><i class="boundary-line"></i>Boundary</span></div>
+            </div>
+            <canvas id="logisticCanvas" aria-label="Interactive binary classification plot with a probability map and decision boundary"></canvas>
+            <p class="canvas-help">Colour shows the model's probability for Class 1. The solid line marks the selected decision threshold.</p>
+          </section>
+
+          <section class="logistic-metrics metrics" aria-label="Current classification values">
+            <article><span>Cross-entropy</span><strong id="logLoss">—</strong><small>Probability error</small></article>
+            <article><span>Accuracy</span><strong id="logAccuracy">—</strong><small>All correct decisions</small></article>
+            <article><span>Precision</span><strong id="logPrecision">—</strong><small>Correct positive claims</small></article>
+            <article><span>Recall</span><strong id="logRecall">—</strong><small>Positives found</small></article>
+          </section>
+
+          <section class="panel sigmoid-panel" aria-labelledby="sigmoidTitle">
+            <div class="panel-heading">
+              <div><span class="step-label">Score to probability</span><h3 id="sigmoidTitle">The sigmoid function</h3></div>
+            </div>
+            <canvas id="sigmoidCanvas" aria-label="Sigmoid curve showing the selected point's score and probability"></canvas>
+            <p class="canvas-help" id="selectedProbability">Select or add a point to inspect its score and probability.</p>
+          </section>
+
+          <section class="panel matrix-panel" aria-labelledby="matrixTitle">
+            <div class="panel-heading">
+              <div><span class="step-label">Decisions after thresholding</span><h3 id="matrixTitle">Confusion matrix</h3></div>
+            </div>
+            <div class="confusion-wrap">
+              <span class="matrix-axis predicted-axis">Predicted class</span>
+              <span class="matrix-axis actual-axis">Actual class</span>
+              <div class="confusion-matrix" aria-label="Confusion matrix counts">
+                <span class="matrix-corner"></span><span class="matrix-head">0</span><span class="matrix-head">1</span>
+                <span class="matrix-head">0</span><div class="matrix-cell correct"><strong id="logTN">0</strong><small>True negative</small></div><div class="matrix-cell error"><strong id="logFP">0</strong><small>False positive</small></div>
+                <span class="matrix-head">1</span><div class="matrix-cell error"><strong id="logFN">0</strong><small>False negative</small></div><div class="matrix-cell correct"><strong id="logTP">0</strong><small>True positive</small></div>
+              </div>
+            </div>
+            <p class="canvas-help">Move only the threshold to change decisions while leaving every learned probability unchanged.</p>
+          </section>
+
+          <section class="panel logistic-explanation" aria-labelledby="logisticExplainTitle">
+            <div class="panel-heading">
+              <div><span class="step-label">Connect the views</span><h3 id="logisticExplainTitle">From score to class</h3></div>
+              <div class="tabs" role="tablist" aria-label="Logistic regression explanation depth">
+                <button class="log-tab active" type="button" role="tab" aria-selected="true" data-log-tab="intuition">Intuition</button>
+                <button class="log-tab" type="button" role="tab" aria-selected="false" data-log-tab="math">Live math</button>
+                <button class="log-tab" type="button" role="tab" aria-selected="false" data-log-tab="deeper">Deeper</button>
+              </div>
+            </div>
+
+            <div class="log-tab-panel active" id="log-tab-intuition" role="tabpanel">
+              <p>The weights tilt a smooth probability surface across the feature space. The threshold slices that surface to produce a decision boundary: one side becomes Class 0 and the other Class 1.</p>
+              <div class="try-card"><strong>Try this</strong><p>Select <b>Overlapping classes</b>, auto-step briefly, then move the threshold from <b>0.30</b> to <b>0.70</b>. Compare precision, recall, and the two kinds of error.</p></div>
+            </div>
+
+            <div class="log-tab-panel" id="log-tab-math" role="tabpanel" hidden>
+              <div class="formula compact">z = w₁x₁ + w₂x₂ + b &nbsp; → &nbsp; p = 1 / (1 + e<sup>−z</sup>)</div>
+              <p id="logPointCalculation">Select or add a point to inspect its calculation.</p>
+              <div class="formula compact">Predict Class 1 when p ≥ <span id="logThresholdFormula">0.50</span></div>
+              <p id="logBoundaryCalculation"></p>
+            </div>
+
+            <div class="log-tab-panel" id="log-tab-deeper" role="tabpanel" hidden>
+              <p>Cross-entropy strongly penalises confident probabilities that are wrong. One gradient step changes the weights and bias in the direction that lowers this loss.</p>
+              <div class="formula compact">Loss = −(1/n) Σ [y log(p) + (1−y) log(1−p)]</div>
+              <ul class="plain-list">
+                <li>The decision boundary is linear even though the probability is produced by a curved sigmoid.</li>
+                <li>Threshold choice changes decisions and metrics, but it does not retrain the model.</li>
+                <li>Accuracy can hide poor performance on an imbalanced dataset.</li>
+                <li>A nonlinear pattern reveals a limitation of a single straight boundary.</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="module" id="conceptModule" aria-labelledby="conceptTitle" hidden>
+        <header class="module-header">
+          <div>
+            <div class="module-kicker"><span class="status-pill live">Live module</span><span id="conceptCategory"></span></div>
+            <h2 id="conceptTitle"></h2>
+            <p id="conceptSummary"></p>
+          </div>
+          <div class="module-goal"><span>Central question</span><strong id="conceptQuestion"></strong></div>
+        </header>
+
+        <div class="concept-grid">
+          <section class="panel concept-controls" aria-labelledby="conceptControlsTitle">
+            <h3 id="conceptControlsTitle">Experiment controls</h3>
+            <div id="conceptControls"></div>
+            <div class="actions concept-actions" id="conceptActions"></div>
+            <div class="control-note" id="conceptInstruction"></div>
+          </section>
+
+          <section class="panel concept-plot" aria-labelledby="conceptPlotTitle">
+            <div class="panel-heading">
+              <div><span class="step-label" id="conceptPlotLabel">Interactive view</span><h3 id="conceptPlotTitle"></h3></div>
+              <div class="legend" id="conceptLegend"></div>
+            </div>
+            <canvas id="conceptCanvas" tabindex="0" aria-label="Interactive machine learning concept visualization"></canvas>
+            <p class="canvas-help" id="conceptCanvasHelp"></p>
+          </section>
+
+          <section class="concept-metrics metrics" id="conceptMetrics" aria-label="Current experiment values"></section>
+
+          <section class="panel concept-explanation" aria-labelledby="conceptExplainTitle">
+            <div class="panel-heading">
+              <div><span class="step-label">Connect interaction and idea</span><h3 id="conceptExplainTitle">What to notice</h3></div>
+              <div class="tabs" role="tablist" aria-label="Concept explanation depth">
+                <button class="concept-tab active" type="button" role="tab" aria-selected="true" data-concept-tab="intuition">Intuition</button>
+                <button class="concept-tab" type="button" role="tab" aria-selected="false" data-concept-tab="math">Live math</button>
+                <button class="concept-tab" type="button" role="tab" aria-selected="false" data-concept-tab="deeper">Deeper</button>
+              </div>
+            </div>
+            <div class="concept-tab-panel active" id="concept-tab-intuition" role="tabpanel"></div>
+            <div class="concept-tab-panel" id="concept-tab-math" role="tabpanel" hidden></div>
+            <div class="concept-tab-panel" id="concept-tab-deeper" role="tabpanel" hidden></div>
+          </section>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="lab-footer">Conceptual models are intentionally small and simplified. No data leaves the browser.</footer>
+  <script src="app.js"></script>
+  <script src="concepts.js"></script>
+  <script src="foundation.js"></script>
+  <script src="training.js"></script>
+  <script src="cnn.js"></script>
+  <script src="rnn.js"></script>
+  <script src="autoencoder.js"></script>
+  <script src="dimensionality.js"></script>
+  <script src="learning.js"></script>
+</body>
+</html>
