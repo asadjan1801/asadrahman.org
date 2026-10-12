@@ -1,9 +1,12 @@
 .DS_Store
+.wrangler/
 Thumbs.db
 *.log
 .vscode/
 .idea/
 node_modules/
+.dev.vars
+.dev.vars.*
 
 # Private instructor materials — never deploy
 Structural_dynamics_Interactive_Labs/lectures/

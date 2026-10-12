@@ -1,8 +1,16 @@
 {
   "name": "asadrahman-org",
   "compatibility_date": "2026-10-03",
+  "main": "worker.mjs",
   "assets": {
     "directory": ".",
-    "html_handling": "auto-trailing-slash"
-  }
+    "html_handling": "auto-trailing-slash",
+    "run_worker_first": ["/api/*"]
+  },
+  "send_email": [
+    {
+      "name": "FEEDBACK_EMAIL",
+      "destination_address": "arahman@nice.nust.edu.pk"
+    }
+  ]
 }

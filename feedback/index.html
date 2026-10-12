@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anonymous Student Feedback | Asad Ur Rahman</title>
+  <meta name="description" content="Share anonymous feedback about teaching, course content, interactive labs, or academic supervision with Asad Ur Rahman.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://asadrahman.org/feedback/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=Source+Sans+3:wght@400;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&amp;display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <nav class="topnav" aria-label="Main navigation">
+      <a class="brand" href="/">Asad Ur Rahman</a>
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel">Menu</button>
+      <div class="nav-panel" id="nav-panel">
+        <div class="nav-links">
+          <a href="/">Home</a>
+          <a href="/research/">Research</a>
+          <a href="/publications/">Publications</a>
+          <a href="/teaching/">Teaching</a>
+          <a href="/interactive-labs/">Interactive Labs</a>
+          <a href="/cv/">CV</a>
+          <a class="nav-feedback" href="/feedback/" aria-current="page">Feedback</a>
+          <a href="/contact/">Contact</a>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">◐</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <header class="page-header feedback-header">
+      <div class="page-shell feedback-intro-grid">
+        <div>
+          <p class="eyebrow">A private channel for students</p>
+          <h1>Anonymous student feedback</h1>
+          <p class="page-intro">Share candid, constructive feedback about my teaching, course material, interactive labs, or academic supervision. Your perspective can help me improve the learning experience.</p>
+        </div>
+        <aside class="privacy-summary" aria-labelledby="privacy-summary-title">
+          <h2 id="privacy-summary-title">What stays anonymous</h2>
+          <ul>
+            <li>No name, email, student ID, or login is requested.</li>
+            <li>Your feedback is emailed directly to me and is not saved in a website database.</li>
+            <li>Your IP address and browser details are not included in the email.</li>
+          </ul>
+        </aside>
+      </div>
+    </header>
+
+    <section class="section feedback-section" aria-labelledby="feedback-form-title">
+      <div class="section-inner feedback-layout">
+        <div class="feedback-form-panel">
+          <div class="feedback-form-heading">
+            <p class="eyebrow">Your perspective</p>
+            <h2 id="feedback-form-title">What should I know?</h2>
+            <p>Please avoid including your name or details that could identify you. Fields marked <span aria-hidden="true">*</span><span class="sr-only">with an asterisk</span> are required.</p>
+          </div>
+
+          <noscript><p class="form-notice form-notice-error">JavaScript is required to verify and send anonymous feedback.</p></noscript>
+
+          <form class="feedback-form" id="feedback-form" novalidate>
+            <div class="form-field">
+              <label for="feedback-category">Feedback about <span aria-hidden="true">*</span></label>
+              <select id="feedback-category" name="category" required>
+                <option value="">Select a topic</option>
+                <option value="teaching">Teaching approach</option>
+                <option value="course-content">Course content</option>
+                <option value="pace-workload">Pace or workload</option>
+                <option value="assessment">Assessment or grading</option>
+                <option value="labs-resources">Interactive labs or resources</option>
+                <option value="supervision">Supervision or mentoring</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="feedback-course">Course or area <span class="field-optional">Optional</span></label>
+              <select id="feedback-course" name="course">
+                <option value="prefer-not-to-say">Prefer not to say</option>
+                <option value="ce-809">CE-809 · Structural Dynamics</option>
+                <option value="ce-312">CE-312 · AI in the Built Environment</option>
+                <option value="research-supervision">Research supervision</option>
+                <option value="website-resources">Website or learning resources</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-field form-field-wide">
+              <div class="label-row">
+                <label for="feedback-message">Your feedback <span aria-hidden="true">*</span></label>
+                <span class="character-count" id="feedback-count" aria-live="polite">0 / 3,000</span>
+              </div>
+              <textarea id="feedback-message" name="message" rows="9" minlength="20" maxlength="3000" required aria-describedby="feedback-message-help" placeholder="What is working well? What could be clearer, fairer, or more useful?"></textarea>
+              <p class="field-help" id="feedback-message-help">Please write at least 20 characters. Do not include confidential personal information.</p>
+            </div>
+
+            <div class="honeypot-field" aria-hidden="true">
+              <label for="company-website">Leave this field empty</label>
+              <input id="company-website" name="companyWebsite" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="verification-block">
+              <div id="feedback-turnstile" aria-label="Anti-spam verification"></div>
+              <p class="field-help" id="verification-help">A privacy-preserving anti-spam check will appear here.</p>
+            </div>
+
+            <div class="form-actions">
+              <button class="button" id="feedback-submit" type="submit" disabled>Submit anonymously</button>
+              <span class="submit-privacy">No reply address will be attached.</span>
+            </div>
+          </form>
+
+          <div class="form-status" id="feedback-status" role="status" aria-live="polite" tabindex="-1"></div>
+        </div>
+
+        <aside class="feedback-guidance" aria-labelledby="feedback-guidance-title">
+          <h2 id="feedback-guidance-title">Helpful feedback is…</h2>
+          <dl>
+            <div><dt>Specific</dt><dd>Describe what happened or what could change without naming another student.</dd></div>
+            <div><dt>Constructive</dt><dd>Explain what would make the course, material, or support more effective.</dd></div>
+            <div><dt>Safe to share</dt><dd>Avoid names, contact details, health information, or other identifying facts.</dd></div>
+          </dl>
+          <div class="resource-note feedback-note">
+            <strong>Please note</strong>
+            <p>This inbox is not continuously monitored and is not an emergency or formal complaint channel. Since no contact information is collected, I cannot reply directly.</p>
+          </div>
+          <details class="privacy-details">
+            <summary>How anonymity works</summary>
+            <p>The form does not ask for identity or contact information, and its email contains only the topic, optional course area, and message you provide. Cloudflare still processes ordinary connection information to deliver the page and prevent abuse, and the email has a delivery time. Avoid wording that could identify you if that matters to you.</p>
+          </details>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <span>© <span data-year></span> Asad Ur Rahman</span>
+      <div class="footer-links"><a href="/teaching/">Teaching</a><a href="/contact/">Contact</a><a href="/">Home</a></div>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+  <script src="/feedback/feedback.js"></script>
+</body>
+</html>

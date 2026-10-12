@@ -1,9 +1,11 @@
 # Repository and deployment configuration
 .git/
+.wrangler/
 .gitignore
 .assetsignore
 README.md
 wrangler.jsonc
+worker.mjs
 
 # Local development files
 .DS_Store
@@ -11,6 +13,9 @@ Thumbs.db
 .vscode/
 .idea/
 node_modules/
+tests/
+.dev.vars
+.dev.vars.*
 
 # Private instructor materials and non-public source directories
 Structural_dynamics_Interactive_Labs/
