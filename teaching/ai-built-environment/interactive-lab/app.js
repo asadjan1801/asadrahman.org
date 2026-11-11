@@ -50,7 +50,7 @@ MODULE_GROUPS.forEach(group => {
     button.type = "button";
     button.className = "module-button" + (item.id === "linear" ? " active" : "");
     button.dataset.module = item.id;
-    button.innerHTML = `<span>${item.title}</span><small>Live</small>`;
+    button.innerHTML = `<span>${item.title}</span>`;
     button.addEventListener("click",() => openModule(item));
     wrapper.appendChild(button);
   });
