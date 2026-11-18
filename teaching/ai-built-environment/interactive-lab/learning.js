@@ -60,12 +60,14 @@ const PREDICTION_SCENARIOS={
 const PREDICTION_VARIANTS={
   cnn:{
     channels:{metric:"Output value z",setup:"Keep 1 input channel, the Vertical edge image and kernel, and bias b = 0. If z is 0, click an output cell on the edge.",question:"You will switch to 3 input channels. The image is gray (R = G = B) and every slice of the filter holds the same vertical-edge weights. Will the output value z decrease, stay similar, or increase?",change:"Set “Input channels K” to 3. Leave everything else alone.",why:"A 3 × 3 × 3 filter multiplies each channel by its own slice and adds all 27 products, plus the bias, into ONE number. Identical channels and slices give three identical partial sums, so z triples. It is still one feature map: to get L maps you need L filters, and the parameter count becomes (3·3·K + 1)·L."},
+    cost:{metric:"Separable speedup",setup:"Choose the MobileNet preset under “Classic layer”, then type 16 into “Output channels K out”.",question:"You will make the layer much wider by setting K out to 256. Will the depthwise-separable speedup over a standard convolution decrease, stay similar, or increase?",change:"Type 256 into “Output channels K out”.",why:"The speedup is F²·K_out/(F² + K_out): K_in cancels out. For a narrow layer the depthwise part is a large share of the separable cost, so the saving is modest (5.76× at K_out = 16). As K_out grows the 1 × 1 pointwise conv dominates both designs and the ratio approaches F² = 9 (8.69× at 256)."},
     depth:{metric:"Receptive field",setup:"Set “Stacked conv layers” to 1, pooling to None, and keep stride 1 and dilation 1.",question:"You will add a second conv layer and look at its centre cell. Will the receptive field decrease, stay similar, or increase?",change:"Set “Stacked conv layers” to 2. The centre cell of the new top layer is selected for you.",why:"Each layer adds (k − 1)·j input pixels to the view, so a second 3 × 3 layer grows the receptive field from 3 × 3 to 5 × 5 and a third to 7 × 7. Three 3 × 3 layers see as much as one 7 × 7 filter with 27K² instead of 49K² weights, and they add two extra nonlinearities."}
   }
 };
 const MISCONCEPTION_VARIANTS={
   cnn:{
     channels:"A 3 × 3 × 3 filter produces one feature map, not three: the products from every channel are added into a single number at each location.",
+    cost:"Fewer parameters does not always mean less computation: multiply-adds also scale with the output size H′ × W′, which the parameter count ignores.",
     depth:"Stacking small filters does not keep the view small: each 3 × 3 layer adds 2·j pixels, so three layers see 7 × 7, with fewer weights than one 7 × 7 filter."
   }
 };
