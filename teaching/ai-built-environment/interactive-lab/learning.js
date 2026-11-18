@@ -61,6 +61,7 @@ const PREDICTION_SCENARIOS={
    module default for that view. Views without an entry keep the default. */
 const PREDICTION_VARIANTS={
   detection:{
+    anchors:{metric:"Best IoU",setup:"Choose “Anchors matched to the crack” under Show, with scales 40 · 80 · 120 and ratios 1:2 · 1:1 · 2:1.",question:"You will switch to the more elongated ratios 1:3 · 1:1 · 3:1. Will the best anchor IoU for the crack decrease, stay similar, or increase?",change:"Set the aspect ratios to 1:3 · 1:1 · 3:1.",why:"The crack is tall and thin (30 × 140 pixels). A 1:3 anchor of scale 80 is about 46 × 139 pixels, so it hugs the crack much better than the 1:2 anchor (57 × 113): the best IoU rises from about 0.47 to 0.65 and the crack now has an anchor above the 0.5 threshold. Anchor shapes should match the shapes of the objects in the data."},
     nms:{metric:"Boxes kept",setup:"Press “▶ Run all” with the threshold at 0.50 and let the run finish.",question:"You will lower the NMS IoU threshold to 0.20. Will the number of boxes kept decrease, stay similar, or increase?",change:"Drag the NMS IoU threshold t to 0.20. The finished run is recomputed at the new threshold.",why:"At t = 0.50 each spall keeps its best box and the weak false alarm also survives: 3 boxes. The two spalls are close, and their best boxes overlap with IoU 0.25. At t = 0.20 the first kept box (score 0.95) also removes every box on the neighbouring spall, so a real defect is lost: 2 boxes. Raising t to 0.80 does the opposite and lets duplicates through."}
   },
   cnn:{
@@ -73,6 +74,7 @@ const PREDICTION_VARIANTS={
 };
 const MISCONCEPTION_VARIANTS={
   detection:{
+    anchors:"Anchors are not predictions: they are fixed reference boxes laid out before training, and the network learns to score each one and nudge it towards the object.",
     nms:"Non-maximum suppression is not free: a low IoU threshold also deletes correct boxes on nearby objects, while a high threshold lets duplicates through."
   },
   cnn:{
