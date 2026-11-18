@@ -56,7 +56,7 @@ canvas{display:block;width:100%;border:1px solid #e4ebf1;border-radius:10px;back
 .cnn-kernel-editor{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:2px 0 3px}.cnn-kernel-editor input{width:100%;min-width:0;padding:8px 3px;border:1px solid #bfccd6;border-radius:7px;color:var(--ink);text-align:center;font-size:.78rem;font-weight:800;font-variant-numeric:tabular-nums}.cnn-kernel-editor input:focus{border-color:var(--blue)}.cnn-view-switch{margin-bottom:17px}
 .cnn-view-switch{display:flex;flex-wrap:wrap}
 .cnn-view-switch label{flex:1 1 28%}
-.concept-controls [data-cnn-views][hidden]{display:none!important}
+.concept-controls [data-cnn-views][hidden],.concept-controls [data-det-views][hidden]{display:none!important}
 .cnn-cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px;margin:4px 0 6px}
 .cnn-cost-field label{display:block;margin:0 0 3px;color:var(--muted);font-size:.72rem;font-weight:800}
 .cnn-cost-field input{width:100%;min-width:0;padding:7px 8px;border:1px solid #bfccd6;border-radius:7px;color:var(--ink);font-weight:800;font-variant-numeric:tabular-nums}
