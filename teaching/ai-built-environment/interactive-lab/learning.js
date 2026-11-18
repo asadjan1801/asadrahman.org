@@ -60,6 +60,9 @@ const PREDICTION_SCENARIOS={
    CNN Playground's current view); a matching PREDICTION_VARIANTS / MISCONCEPTION_VARIANTS entry then replaces the
    module default for that view. Views without an entry keep the default. */
 const PREDICTION_VARIANTS={
+  gradient:{
+    compare:{metric:"Momentum loss",setup:"Choose the Ravine surface and “Compare all four”. Set α = 0.10 and β = 0, press “Reset path”, then press “Take 10 steps” three times.",question:"You will repeat the same 30 steps with β = 0.5. Will the momentum optimizer’s loss after 30 steps decrease, stay similar, or increase?",change:"Set β to 0.5, press “Reset path”, then press “Take 10 steps” three times.",why:"On the ravine the gradient points mostly across the steep valley walls and only weakly along the flat floor (κ = 50). Momentum adds up the small, consistent pushes along the floor, so after the same 30 steps the loss is lower: about 0.24 instead of 0.44. Push β to 0.9 and heavy-ball momentum overshoots and is still oscillating after 30 steps, while Nesterov’s look-ahead brakes in time."}
+  },
   detection:{
     pr:{metric:"AP",setup:"Keep the IoU threshold for a TP at 0.50.",question:"You will demand tighter boxes by raising the IoU threshold to 0.75. Will the average precision decrease, stay similar, or increase?",change:"Drag the IoU threshold t to 0.75.",why:"Three boxes (#3 with IoU 0.69, #5 with 0.58 and #7 with 0.64) found their defects well enough at t = 0.50 but not at 0.75, so they turn into false positives. Only two defects are still found, recall stops at 0.4, and AP falls from about 0.90 to 0.40. A detector can rank well and still place its boxes loosely; COCO’s AP@[.5:.95] rewards tight boxes for this reason."},
     regress:{metric:"Decoded IoU",setup:"Choose the crack as the object and press “Zero offsets”: the decoded box is then the anchor itself.",question:"You will set the four offsets to their target values. Will the IoU between the decoded box and the crack decrease, stay similar, or increase?",change:"Press “Use target offsets”.",why:"The targets are computed from the labelled box with the encoding formulas, and decoding inverts them exactly (x = xa + tx·wa, w = wa·e^tw), so the decoded box lands on the crack and IoU becomes 1. A trained network predicts offsets close to these targets, never exactly equal, and the decoded boxes then go to NMS."},
@@ -75,6 +78,9 @@ const PREDICTION_VARIANTS={
   }
 };
 const MISCONCEPTION_VARIANTS={
+  gradient:{
+    compare:"Adam is not automatically the fastest optimizer: its steps are about α long in every direction, so on a simple quadratic a well-tuned momentum method can reach the minimum first."
+  },
   detection:{
     pr:"AP is not the precision at one threshold: it summarises precision over every recall level of the ranked list, so changing the score threshold does not change AP.",
     regress:"The network does not output box corners directly: it predicts a centre shift measured in anchor widths and heights, and a log-scale change of size.",
