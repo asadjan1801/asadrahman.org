@@ -57,6 +57,7 @@ canvas{display:block;width:100%;border:1px solid #e4ebf1;border-radius:10px;back
 .cnn-view-switch{display:flex;flex-wrap:wrap}
 .cnn-view-switch label{flex:1 1 28%}
 .concept-controls [data-cnn-views][hidden]{display:none!important}
+.control-hint{margin:2px 0 0;color:var(--muted);font-size:.74rem;line-height:1.45}
 .cnn-act-plot{display:block;width:100%;height:70px;margin:6px 0 12px;background:#f8fbfd;border:1px solid #e1e8ee;border-radius:8px}
 .rnn-sequence-editor{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}.rnn-sequence-editor label{display:grid;grid-template-columns:1fr;gap:2px;padding:4px;border:1px solid #ced9e1;border-radius:8px;background:#f8fafb;text-align:center}.rnn-sequence-editor label.active{border-color:var(--purple);background:#eeeaf8;box-shadow:inset 0 0 0 1px var(--purple)}.rnn-sequence-editor span{color:var(--muted);font-size:.65rem;font-weight:800}.rnn-sequence-editor input{width:100%;min-width:0;padding:5px 1px;border:0;background:transparent;color:var(--ink);text-align:center;font-size:.76rem;font-weight:800;font-variant-numeric:tabular-nums}.rnn-sequence-editor input:focus{outline:2px solid #65b8e9;border-radius:4px}#rnnGateControls.disabled{opacity:.42}.rnn-view-switch{margin-bottom:17px}
 .ae-view-switch{margin-bottom:17px}#aePipelineControls.disabled,#aeLatentControls.disabled{opacity:.42}.ae-view-switch+ .train-control-section{margin-top:0}

@@ -27,6 +27,8 @@ function cnnPlayPattern(name,size=7){
   return grid;
 }
 
+const CNN_PLAY_PATTERN_NAMES=["edge","cross","corner","checker","diagonal"];
+
 /* Self-generated 16 × 16 grayscale scenes (no photograph or external source is used). Values lie in [0, 1];
    as in the binary patterns, 1 is drawn dark ("ink") and 0 light. */
 const CNN_SCENES={bridge:"Truss bridge",facade:"Building facade",crack:"Cracked concrete"};
@@ -190,5 +192,5 @@ function cnnSeparableCost({H,W,Kin,Kout,F,S=1,P=0}){
 /* Standard ÷ separable multiply-adds = F²·Kout / (F² + Kout); for 3 × 3 with K channels this is 9K/(9 + K). */
 function cnnSeparableSpeedup(F,Kout){return F*F*Kout/(F*F+Kout)}
 
-const CNN_MATH={CNN_PLAY_KERNELS,CNN_SCENES,CNN_COLOUR_IMAGES,cnnColourImage,cnnPlayClone,cnnZeros,cnnPlayPattern,cnnScene,cnnPlayPad,cnnOutputSize,cnnPlayConvolve,cnnMultiChannelConvolve,cnnParamCount,cnnActivationValue,cnnPlayActivate,cnnPoolWindows,cnnPlayPool,cnnPoolBackward,cnnSoftmax,cnnHeadLogits,cnnReceptiveField,cnnTraceIndices,cnnConvCost,cnnBottleneckCost,cnnSeparableCost,cnnSeparableSpeedup};
+const CNN_MATH={CNN_PLAY_KERNELS,CNN_PLAY_PATTERN_NAMES,CNN_SCENES,CNN_COLOUR_IMAGES,cnnColourImage,cnnPlayClone,cnnZeros,cnnPlayPattern,cnnScene,cnnPlayPad,cnnOutputSize,cnnPlayConvolve,cnnMultiChannelConvolve,cnnParamCount,cnnActivationValue,cnnPlayActivate,cnnPoolWindows,cnnPlayPool,cnnPoolBackward,cnnSoftmax,cnnHeadLogits,cnnReceptiveField,cnnTraceIndices,cnnConvCost,cnnBottleneckCost,cnnSeparableCost,cnnSeparableSpeedup};
 if(typeof module!=="undefined"&&module.exports)module.exports=CNN_MATH;
