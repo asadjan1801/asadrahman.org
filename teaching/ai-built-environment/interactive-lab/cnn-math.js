@@ -55,6 +55,15 @@ function cnnScene(name,size=16){
   return grid.map(row=>row.map(value=>Math.round(Math.min(1,Math.max(0,value))*1000)/1000));
 }
 
+/* Three-channel ("RGB-style") inputs for the multi-channel view, at the same size as the gray input.
+   bars: red vertical bar and blue horizontal bar (green empty); mixed: red = edge, green = cross, blue = corner. */
+const CNN_COLOUR_IMAGES={gray:"Gray image · R = G = B",bars:"Red vertical bar + blue horizontal bar",mixed:"Red edge · green cross · blue corner"};
+function cnnColourImage(name,size=7,gray=null){
+  if(name==="bars"){const red=cnnZeros(size,size),green=cnnZeros(size,size),blue=cnnZeros(size,size),c0=Math.round(size*.2),r0=Math.round(size*.55);for(let i=0;i<size;i++){red[i][c0]=1;red[i][c0+1]=1;blue[r0][i]=1;blue[r0+1][i]=1}return [red,green,blue]}
+  if(name==="mixed")return [cnnPlayPattern("edge",size),cnnPlayPattern("cross",size),cnnPlayPattern("corner",size)];
+  const base=gray||cnnZeros(size,size);return [cnnPlayClone(base),cnnPlayClone(base),cnnPlayClone(base)];
+}
+
 function cnnPlayPad(matrix,padding){
   if(!padding)return cnnPlayClone(matrix);const size=matrix.length+padding*2;
   return Array.from({length:size},(_,row)=>Array.from({length:size},(_,column)=>row<padding||column<padding||row>=size-padding||column>=size-padding?0:matrix[row-padding][column-padding]));
@@ -181,5 +190,5 @@ function cnnSeparableCost({H,W,Kin,Kout,F,S=1,P=0}){
 /* Standard ÷ separable multiply-adds = F²·Kout / (F² + Kout); for 3 × 3 with K channels this is 9K/(9 + K). */
 function cnnSeparableSpeedup(F,Kout){return F*F*Kout/(F*F+Kout)}
 
-const CNN_MATH={CNN_PLAY_KERNELS,CNN_SCENES,cnnPlayClone,cnnZeros,cnnPlayPattern,cnnScene,cnnPlayPad,cnnOutputSize,cnnPlayConvolve,cnnMultiChannelConvolve,cnnParamCount,cnnActivationValue,cnnPlayActivate,cnnPoolWindows,cnnPlayPool,cnnPoolBackward,cnnSoftmax,cnnHeadLogits,cnnReceptiveField,cnnTraceIndices,cnnConvCost,cnnBottleneckCost,cnnSeparableCost,cnnSeparableSpeedup};
+const CNN_MATH={CNN_PLAY_KERNELS,CNN_SCENES,CNN_COLOUR_IMAGES,cnnColourImage,cnnPlayClone,cnnZeros,cnnPlayPattern,cnnScene,cnnPlayPad,cnnOutputSize,cnnPlayConvolve,cnnMultiChannelConvolve,cnnParamCount,cnnActivationValue,cnnPlayActivate,cnnPoolWindows,cnnPlayPool,cnnPoolBackward,cnnSoftmax,cnnHeadLogits,cnnReceptiveField,cnnTraceIndices,cnnConvCost,cnnBottleneckCost,cnnSeparableCost,cnnSeparableSpeedup};
 if(typeof module!=="undefined"&&module.exports)module.exports=CNN_MATH;

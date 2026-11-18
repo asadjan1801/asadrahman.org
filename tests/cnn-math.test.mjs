@@ -162,3 +162,14 @@ test('self-generated scenes are 16 × 16 grayscale in [0, 1] and deterministic',
   }
   assert.deepEqual(M.cnnPlayPattern('cross', 15)[7], Array(15).fill(1));
 });
+
+test('colour inputs: three channels at the input size', () => {
+  const [red, green, blue] = M.cnnColourImage('bars', 7);
+  assert.deepEqual(red.map(row => row[1] + row[2]), Array(7).fill(2), 'red bar in columns 2–3');
+  assert.ok(green.flat().every(value => value === 0));
+  assert.deepEqual(blue[4], Array(7).fill(1));
+  assert.equal(M.cnnColourImage('mixed', 16)[1].length, 16);
+  const gray = M.cnnPlayPattern('cross'), copies = M.cnnColourImage('gray', 7, gray);
+  assert.deepEqual(copies, [gray, gray, gray]);
+  assert.notEqual(copies[0], gray, 'channels are copies, so drawing on one does not change the others');
+});
