@@ -7,45 +7,7 @@ CONCEPT_META.cnn={
   question:"How does one small filter turn local pixels into reusable visual features?"
 };
 
-const CNN_PLAY_KERNELS={
-  vertical:[[-1,0,1],[-1,0,1],[-1,0,1]],
-  horizontal:[[-1,-1,-1],[0,0,0],[1,1,1]],
-  diagonal:[[-1,-1,0],[-1,0,1],[0,1,1]],
-  blur:[[1/9,1/9,1/9],[1/9,1/9,1/9],[1/9,1/9,1/9]],
-  sharpen:[[0,-1,0],[-1,5,-1],[0,-1,0]]
-};
-
-function cnnPlayClone(matrix){return matrix.map(row=>[...row])}
-function cnnPlayPattern(name){
-  const size=7,grid=Array.from({length:size},()=>Array(size).fill(0));
-  if(name==="edge")for(let row=0;row<size;row++)for(let column=4;column<size;column++)grid[row][column]=1;
-  if(name==="cross")for(let index=0;index<size;index++){grid[3][index]=1;grid[index][3]=1}
-  if(name==="corner")for(let index=1;index<6;index++){grid[1][index]=1;grid[index][1]=1}
-  if(name==="checker")for(let row=0;row<size;row++)for(let column=0;column<size;column++)grid[row][column]=(row+column)%2;
-  if(name==="diagonal")for(let row=0;row<size;row++)for(let column=0;column<size;column++)if(Math.abs(row-column)<=1)grid[row][column]=1;
-  return grid;
-}
-function cnnPlayPad(matrix,padding){
-  if(!padding)return cnnPlayClone(matrix);const size=matrix.length+padding*2;
-  return Array.from({length:size},(_,row)=>Array.from({length:size},(_,column)=>row<padding||column<padding||row>=size-padding||column>=size-padding?0:matrix[row-padding][column-padding]));
-}
-function cnnPlayConvolve(pixels,kernel,stride,padding){
-  const padded=cnnPlayPad(pixels,padding),rows=Math.floor((padded.length-3)/stride)+1,columns=Math.floor((padded[0].length-3)/stride)+1,map=[];
-  for(let row=0;row<rows;row++){
-    const line=[];
-    for(let column=0;column<columns;column++){
-      let sum=0;for(let kr=0;kr<3;kr++)for(let kc=0;kc<3;kc++)sum+=padded[row*stride+kr][column*stride+kc]*kernel[kr][kc];line.push(sum);
-    }
-    map.push(line);
-  }
-  return {map,padded};
-}
-function cnnPlayActivate(map,name){return map.map(row=>row.map(value=>name==="relu"?Math.max(0,value):value))}
-function cnnPlayPool(map,type){
-  if(type==="none")return null;const output=[];
-  for(let row=0;row<map.length;row+=2){const line=[];for(let column=0;column<map[0].length;column+=2){const values=[];for(let r=row;r<Math.min(row+2,map.length);r++)for(let c=column;c<Math.min(column+2,map[0].length);c++)values.push(map[r][c]);line.push(type==="avg"?values.reduce((sum,value)=>sum+value,0)/values.length:Math.max(...values))}output.push(line)}
-  return output;
-}
+/* Pure arithmetic (patterns, convolution, pooling, costs, receptive fields) lives in cnn-math.js. */
 function cnnPlayColour(value,maxAbs,input=false,padding=false){
   if(padding)return "#e7edf2";
   if(input){const amount=clamp(value,0,1);return `rgb(${Math.round(246-170*amount)},${Math.round(249-126*amount)},${Math.round(251-80*amount)})`}
