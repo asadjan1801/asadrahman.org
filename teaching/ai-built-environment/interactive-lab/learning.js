@@ -60,6 +60,9 @@ const PREDICTION_SCENARIOS={
    CNN Playground's current view); a matching PREDICTION_VARIANTS / MISCONCEPTION_VARIANTS entry then replaces the
    module default for that view. Views without an entry keep the default. */
 const PREDICTION_VARIANTS={
+  detection:{
+    nms:{metric:"Boxes kept",setup:"Press “▶ Run all” with the threshold at 0.50 and let the run finish.",question:"You will lower the NMS IoU threshold to 0.20. Will the number of boxes kept decrease, stay similar, or increase?",change:"Drag the NMS IoU threshold t to 0.20. The finished run is recomputed at the new threshold.",why:"At t = 0.50 each spall keeps its best box and the weak false alarm also survives: 3 boxes. The two spalls are close, and their best boxes overlap with IoU 0.25. At t = 0.20 the first kept box (score 0.95) also removes every box on the neighbouring spall, so a real defect is lost: 2 boxes. Raising t to 0.80 does the opposite and lets duplicates through."}
+  },
   cnn:{
     channels:{metric:"Output value z",setup:"Keep 1 input channel, the Vertical edge image and kernel, and bias b = 0. If z is 0, click an output cell on the edge.",question:"You will switch to 3 input channels. The image is gray (R = G = B) and every slice of the filter holds the same vertical-edge weights. Will the output value z decrease, stay similar, or increase?",change:"Set “Input channels K” to 3. Leave everything else alone.",why:"A 3 × 3 × 3 filter multiplies each channel by its own slice and adds all 27 products, plus the bias, into ONE number. Identical channels and slices give three identical partial sums, so z triples. It is still one feature map: to get L maps you need L filters, and the parameter count becomes (3·3·K + 1)·L."},
     backward:{metric:"Nonzero gradients",setup:"Keep 2 × 2 max pooling and the Vertical edge image; the Detail strip shows the pool backward pass.",question:"You will switch to 2 × 2 average pooling. Will the number of activation cells that receive a nonzero gradient decrease, stay similar, or increase?",change:"Set Pooling to “2 × 2 average pooling”.",why:"Max pooling’s output depends on only one input per window, so only that argmax unit receives the gradient and the rest get exactly zero. Average pooling depends on every input equally (∂/∂xᵢ = 1/n), so every cell in every window receives g/n. In both cases the total gradient is conserved."},
@@ -69,6 +72,9 @@ const PREDICTION_VARIANTS={
   }
 };
 const MISCONCEPTION_VARIANTS={
+  detection:{
+    nms:"Non-maximum suppression is not free: a low IoU threshold also deletes correct boxes on nearby objects, while a high threshold lets duplicates through."
+  },
   cnn:{
     channels:"A 3 × 3 × 3 filter produces one feature map, not three: the products from every channel are added into a single number at each location.",
     backward:"Max pooling has no weights, yet it still passes gradients backward: only to the input that won the max. The other inputs in the window receive exactly zero.",
