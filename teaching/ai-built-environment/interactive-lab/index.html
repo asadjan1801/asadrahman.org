@@ -7,7 +7,7 @@
   <meta name="description" content="A lightweight, browser-based lab for building intuition about machine learning and deep learning through direct interaction.">
   <link rel="canonical" href="https://asadrahman.org/teaching/ai-built-environment/interactive-lab/">
   <meta property="og:title" content="Machine Learning &amp; Deep Learning Lab">
-  <meta property="og:description" content="Twenty-two browser-only modules for building intuition about machine learning, from linear regression to transformers, LLMs, and vision–language models.">
+  <meta property="og:description" content="Twenty-three browser-only modules for building intuition about machine learning, from linear regression to transformers, LLMs, and vision–language models.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://asadrahman.org/teaching/ai-built-environment/interactive-lab/">
   <meta property="og:image" content="https://asadrahman.org/images/labs/machine-learning-lab.jpg">
@@ -32,7 +32,7 @@
     <aside class="lab-nav" id="labNav" aria-label="Lab modules">
       <div class="nav-intro">
         <strong>Concept map</strong>
-        <span>22 modules</span>
+        <span>23 modules</span>
         <span>Browser only</span>
       </div>
       <div id="navList"></div>
@@ -41,7 +41,7 @@
     <main class="workspace" id="workspace">
       <section class="learning-shell" id="learningShell" aria-labelledby="learningShellTitle">
         <div class="learning-toolbar">
-          <div class="learning-identity">
+          <div class="learning-identity sr-only">
             <span class="step-label">Learning mode</span>
             <strong id="learningShellTitle">Guided exploration</strong>
           </div>
@@ -60,22 +60,24 @@
           </div>
         </div>
         <div class="guided-panel" id="guidedPanel">
-          <ol class="guide-steps" aria-label="Guided learning stages">
-            <li><button class="guide-step active" type="button" data-guide-stage="0"><span>1</span>Predict</button></li>
-            <li><button class="guide-step" type="button" data-guide-stage="1"><span>2</span>Interact</button></li>
-            <li><button class="guide-step" type="button" data-guide-stage="2"><span>3</span>Observe</button></li>
-            <li><button class="guide-step" type="button" data-guide-stage="3"><span>4</span>Explain</button></li>
-          </ol>
+          <div class="guide-bar">
+            <ol class="guide-steps" aria-label="Guided learning stages">
+              <li><button class="guide-step active" type="button" data-guide-stage="0"><span>1</span>Predict</button></li>
+              <li><button class="guide-step" type="button" data-guide-stage="1"><span>2</span>Interact</button></li>
+              <li><button class="guide-step" type="button" data-guide-stage="2"><span>3</span>Observe</button></li>
+              <li><button class="guide-step" type="button" data-guide-stage="3"><span>4</span>Explain</button></li>
+            </ol>
+            <div class="stage-nav"><button class="tool-button" id="previousStageButton" type="button">Back</button><button class="button primary" id="nextStageButton" type="button">Continue</button></div>
+          </div>
           <div class="guide-content" aria-live="polite">
-            <div><span class="step-label" id="guideStageLabel">Before changing anything</span><h2 id="guideTitle">Make a prediction</h2><p id="guidePrompt"></p></div>
+            <div><span class="sr-only" id="guideStageLabel">Before changing anything</span><h2 class="sr-only" id="guideTitle">Make a prediction</h2><p id="guidePrompt"></p></div>
             <div class="prediction-options" id="predictionOptions" role="group" aria-label="Your ungraded prediction">
               <button type="button" data-prediction="decrease">Decrease</button><button type="button" data-prediction="similar">Stay similar</button><button type="button" data-prediction="increase">Increase</button>
             </div>
-            <aside class="misconception-note" id="misconceptionNote"></aside>
           </div>
           <div class="guide-footer">
-            <div class="lesson-nav"><button class="tool-button" id="previousLessonButton" type="button">Previous lesson</button><button class="tool-button" id="nextLessonButton" type="button">Next lesson</button></div>
-            <div class="stage-nav"><button class="tool-button" id="previousStageButton" type="button">Previous step</button><button class="button primary" id="nextStageButton" type="button">Continue</button></div>
+            <div class="misconception-note" id="misconceptionNote"></div>
+            <div class="lesson-nav"><button class="tool-button" id="previousLessonButton" type="button">← Previous lesson</button><button class="tool-button" id="nextLessonButton" type="button">Next lesson →</button></div>
           </div>
         </div>
       </section>
@@ -83,9 +85,8 @@
       <section class="module active" id="linearModule" aria-labelledby="linearTitle">
         <header class="module-header">
           <div>
-            <div class="module-kicker"><span class="status-pill live">Live module</span><span>Foundations</span></div>
+            <div class="module-kicker"><span>Foundations</span></div>
             <h2 id="linearTitle">Linear Regression</h2>
-            <p>Fit a line to editable data and see how residuals, mean squared error, and gradient descent describe the same learning process.</p>
           </div>
           <div class="module-goal"><span>Central question</span><strong>How does a model learn the best line?</strong></div>
         </header>
@@ -202,9 +203,8 @@
       <section class="module" id="logisticModule" aria-labelledby="logisticTitle" hidden>
         <header class="module-header">
           <div>
-            <div class="module-kicker"><span class="status-pill live">Live module</span><span>Classical ML</span></div>
+            <div class="module-kicker"><span>Classical ML</span></div>
             <h2 id="logisticTitle">Logistic Regression</h2>
-            <p>Turn a weighted score into a probability, then see how a decision threshold converts that probability into one of two classes.</p>
           </div>
           <div class="module-goal"><span>Central question</span><strong>How does a model draw a probabilistic boundary?</strong></div>
         </header>
@@ -339,9 +339,9 @@
       <section class="module" id="conceptModule" aria-labelledby="conceptTitle" hidden>
         <header class="module-header">
           <div>
-            <div class="module-kicker"><span class="status-pill live">Live module</span><span id="conceptCategory"></span></div>
+            <div class="module-kicker"><span id="conceptCategory"></span></div>
             <h2 id="conceptTitle"></h2>
-            <p id="conceptSummary"></p>
+            <p id="conceptSummary" hidden></p>
           </div>
           <div class="module-goal"><span>Central question</span><strong id="conceptQuestion"></strong></div>
         </header>
@@ -351,7 +351,7 @@
             <h3 id="conceptControlsTitle">Experiment controls</h3>
             <div id="conceptControls"></div>
             <div class="actions concept-actions" id="conceptActions"></div>
-            <div class="control-note" id="conceptInstruction"></div>
+            <div class="control-note" id="conceptInstruction" hidden></div>
           </section>
 
           <section class="panel concept-plot" aria-labelledby="conceptPlotTitle">
@@ -386,10 +386,14 @@
 
   <footer class="lab-footer">Conceptual models are intentionally small and simplified. No data leaves the browser.</footer>
   <script src="app.js"></script>
+  <script src="optim-math.js"></script>
   <script src="concepts.js"></script>
   <script src="foundation.js"></script>
   <script src="training.js"></script>
+  <script src="cnn-math.js"></script>
   <script src="cnn.js"></script>
+  <script src="detection-math.js"></script>
+  <script src="detection.js"></script>
   <script src="rnn.js"></script>
   <script src="autoencoder.js"></script>
   <script src="dimensionality.js"></script>

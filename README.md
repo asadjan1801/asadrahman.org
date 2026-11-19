@@ -12,6 +12,14 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000`.
 
+## Tests
+
+```sh
+node --test 'tests/*.test.mjs'
+```
+
+The interactive-lab math files (`cnn-math.js`, …) are plain browser scripts that also export their functions to Node, so the tests check the exact code that runs in the lab.
+
 ## Site structure
 
 - `/` — academic homepage

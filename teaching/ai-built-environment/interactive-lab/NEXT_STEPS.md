@@ -1,8 +1,13 @@
 # Interactive ML & Deep Learning Lab — Next Steps
 
-All 22 modules are live, including the four generative and foundation-model modules (diffusion, attention, LLMs, and vision–language models). Keep every module lightweight, browser-only, and free of paid or cloud APIs.
+All 23 modules are live, including the four generative and foundation-model modules (diffusion, attention, LLMs, and vision–language models). Keep every module lightweight, browser-only, and free of paid or cloud APIs.
 
 ## Done (November 2026)
+
+- CNN Playground: Leaky ReLU/ELU, dilation, stride 3, padding 2 and three self-generated grayscale scenes; new views for multi-channel convolution (Channels), stacked layers and receptive fields (Layers & RF) and layer cost (Cost); a pool backward pass and a softmax classifier head in the Pipeline detail strip. The arithmetic is in `cnn-math.js`.
+- New module: Object Detection (IoU, NMS, anchors, box offsets, precision–recall and AP), with the arithmetic in `detection-math.js`.
+- Unit tests for the CNN and detection arithmetic: `node --test 'tests/*.test.mjs'`. They reproduce the d2l.ai anchor and NMS worked examples.
+- Guided mode supports per-view experiments (`PREDICTION_VARIANTS` and `MISCONCEPTION_VARIANTS` in `learning.js`), chosen through `window.LAB_GUIDE_VARIANT[moduleId]`.
 
 - Guided mode now uses one specific experiment per module (`PREDICTION_SCENARIOS` in `learning.js`). It records the named readout when the student reaches step 2 and reports the actual change against the prediction in step 3.
 - The lab follows the operating-system reduce-motion setting until the student chooses otherwise.

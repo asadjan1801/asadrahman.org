@@ -21,7 +21,8 @@ const MODULE_GROUPS = [
   ]},
   {name:"Deep Learning",items:[
     {id:"neural",title:"Neuron & MLP",status:"live",summary:"Build nonlinear functions by connecting simple computational units.",visual:"Network graph, weighted sums and per-neuron activations.",interaction:"Change inputs, weights, activation and network depth."},
-    {id:"cnn",title:"CNN Playground",status:"live",summary:"Trace an editable image through convolution, activation and pooling while comparing several filters.",visual:"A highlighted receptive field, editable kernel arithmetic, feature maps and pooled outputs.",interaction:"Draw pixels, edit filter weights, scan locations, change geometry and compare a multi-filter feature stack."},
+    {id:"cnn",title:"CNN Playground",status:"live",summary:"Trace an editable image through convolution, activation and pooling while comparing several filters.",visual:"A highlighted receptive field, editable kernel arithmetic, feature maps and pooled outputs.",interaction:"Draw pixels, edit filter weights, scan locations, change geometry and compare a multi-filter feature stack; then switch to multi-channel filters, stacked layers, the cost calculator, the pooling backward pass or the softmax head."},
+    {id:"detection",title:"Object Detection: IoU, NMS & Anchors",status:"live",summary:"Score predicted boxes, remove duplicates, match anchors to objects and evaluate a detector with precision–recall and AP.",visual:"Draggable boxes on an inspection scene, a step-by-step NMS trace, anchor grids, box offsets and a PR curve.",interaction:"Drag and resize boxes, step through NMS, change anchor scales and ratios, edit regression offsets and move the IoU threshold for evaluation."},
     {id:"rnn",title:"RNN & LSTM Playground",status:"live",summary:"Edit a sequence and compare recurrent state, gated memory and first-input influence through time.",visual:"An unrolled timeline, live LSTM gates, hidden-state traces and sensitivity curves.",interaction:"Edit or extend the sequence, inspect time steps and gates, then compare RNN and LSTM memory on identical inputs."},
     {id:"autoencoder",title:"Autoencoder & Latent Space Playground",status:"live",summary:"Compress editable images, compare reconstruction and denoising, then navigate a two-dimensional latent space.",visual:"Clean and noisy inputs, a live bottleneck, reconstruction trade-off curve and draggable latent map.",interaction:"Draw pixels, change code width and learning objective, or move through latent space to generate blended outputs."}
   ]},
@@ -61,7 +62,7 @@ function openModule(item){
   document.querySelectorAll(".module-button").forEach(button => button.classList.toggle("active",button.dataset.module === item.id));
   const isLinear = item.id === "linear";
   const isLogistic = item.id === "logistic";
-  const conceptIds=["gradient","backprop","training","pca","generalization","knn","tree","ensembles","svm","kmeans","evaluation","arena","neural","cnn","rnn","autoencoder","diffusion","transformer","llm","vlm"];
+  const conceptIds=["gradient","backprop","training","pca","generalization","knn","tree","ensembles","svm","kmeans","evaluation","arena","neural","cnn","detection","rnn","autoencoder","diffusion","transformer","llm","vlm"];
   const isConcept=conceptIds.includes(item.id);
   $("#linearModule").classList.toggle("active",isLinear);
   $("#linearModule").hidden = !isLinear;
